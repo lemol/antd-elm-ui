@@ -1,0 +1,10 @@
+tasks:
+  - init: yarn
+    command: 'echo "TODO: Replace with command to start project"'
+
+ports:
+  - port: 1234
+    onOpen: open-preview
+vscode:
+  extensions:
+    - elmTooling.elm-ls-vscode@1.1.1:V7e0myIRioA+vC8/uv+Cmw==

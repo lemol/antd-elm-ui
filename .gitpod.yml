@@ -3,7 +3,7 @@ tasks:
     command: 'echo "TODO: Replace with command to start project"'
 
 ports:
-  - port: 1234
+  - port: 8000
     onOpen: open-preview
 vscode:
   extensions:

@@ -1,0 +1,17 @@
+{
+  "name": "ant-design",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "css": "^3.0.0",
+    "lodash": "^4.17.19"
+  },
+  "devDependencies": {
+    "@types/css": "^0.0.31",
+    "@types/node": "^14.0.23",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  }
+}

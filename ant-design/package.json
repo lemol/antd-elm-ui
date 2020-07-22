@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "build-theme": "ts-node index.ts | elm-format --stdin --elm-version=0.19 --output=../src/Ant/ThemeValues.elm"
+  },
   "dependencies": {
     "color": "^3.1.2",
     "css": "^3.0.0",

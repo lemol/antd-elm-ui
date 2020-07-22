@@ -21,15 +21,43 @@ export type ElmRecord = {
   values: Array<ElmRecordValue>,
 };
 
+export type ElmModule = {
+  name: string,
+  imports: string,
+  records: Array<ElmRecord>,
+}
+
+export function buildElmModule(name: string, selectors: Array<string>, css: Record<string, { declarations: Array<NameValue> }>) : ElmModule {
+  const imports = mls`
+  | import Element exposing (Color, rgb255, rgba255)
+  | import Element.Font as Font
+  | import Element.Border as Border
+  `;
+
+  const records = Object.keys(css)
+    .filter(key => selectors.includes(key))
+    .map(key => buildDeclarations(key, css[key].declarations))
+
+  return {
+    name,
+    imports,
+    records,
+  }
+}
+
 export function buildDeclarations(name: string, declarations: Array<NameValue>) : ElmRecord {
   const values = buildForEach(
     declarations,
     [
       basic.height,
+      basic.padding,
+      basic.backgroundColor,
       font.color,
       font.fontSize,
       font.fontWeight,
+      font.fontAlign,
       border.border,
+      border.shadow,
     ]
   );
 
@@ -37,6 +65,18 @@ export function buildDeclarations(name: string, declarations: Array<NameValue>) 
     name,
     values,
   };
+}
+
+export function writeElmModule({ name, imports, records }: ElmModule) {
+  const result = mls`
+  | module ${name} exposing (..)
+  |
+  | ${imports}
+  |
+  | ${records.map(writeElmRecord).join('\n\n')}
+  `;
+
+  return result;
 }
 
 export function writeElmRecord(record: ElmRecord) {

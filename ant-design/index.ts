@@ -78,10 +78,9 @@ function merger<T>(a: Array<T>, b: Array<T>, key: string) {
 
 const final = _.reduce(_.flatten(rules), (acc, act) => _.mergeWith(acc, act, merger), {});
 
-const btnDecls = (final as any).btn;
+const selectors = [
+  'btn',
+];
 
-const rr = elmUi.buildDeclarations('btn', btnDecls.declarations);
-
-console.log(btnDecls.declarations);
-console.log(elmUi.writeElmRecord(rr));
-
+const elmModule = elmUi.buildElmModule('Ant.ThemeValues', selectors, final);
+console.log(elmUi.writeElmModule(elmModule));

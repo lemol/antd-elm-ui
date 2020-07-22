@@ -25,3 +25,23 @@ export function border(declarations: Array<{name:string,value:string}>) {
     }
   ];
 }
+
+export function shadow(declarations: Array<{name:string,value:string}>) {
+  const elmDeclarations = [];
+
+  const result = subset(declarations, ['box_shadow']).reduce((acc, decl) => {
+    return {
+      ...acc,
+      [decl.name]: decl.value,
+    }
+  }, {} as any);
+
+  return [
+    {
+      name: 'shadow',
+      value: {
+        shadow: borderT.parseShadow(result.box_shadow),
+      }
+    }
+  ];
+}

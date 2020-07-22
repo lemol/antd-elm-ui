@@ -18,8 +18,8 @@ main =
         defaultConfig
         [ storiesOf
             "Welcome"
-            [ ( "Default", \_ -> toHtml <| Button.default [] { onPress = Nothing, label = Element.text "OK" }, {} )
-            , ( "Primary", \_ -> toHtml <| Button.primary [] { onPress = Nothing, label = Element.text "OK" }, {} )
+            [ ( "Default", \_ -> toHtml <| Button.default [] { onPress = Nothing, label = Element.text "Default Button" }, {} )
+            , ( "Primary", \_ -> toHtml <| Button.primary [] { onPress = Nothing, label = Element.text "Primary Button" }, {} )
             ]
         ]
 

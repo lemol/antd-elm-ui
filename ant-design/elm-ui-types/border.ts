@@ -15,7 +15,16 @@ export type Border = {
   style?: BorderStyle,
 };
 
+export type Shadow = {
+  offset: Px[],
+  size: Px,
+  blur: Px,
+  color: Color,
+};
+
 export type BorderValue = { border: Border };
+
+export type ShadowValue = { shadow: Shadow };
 
 export function borderStyle(css: string): BorderStyle {
   return ({
@@ -70,14 +79,51 @@ export const border : ValueObject<Border> = {
     return {} as any;
   },
   writeValue: (value: Border) => {
-    console.log(value)
     return mls`
     | { width = ${basic.px.writeValue(value.width || 1)}
-    | , style = ${value.style}
+    | , style = Border.${value.style}
     | ${value.color && `, color = ${basic.color.writeValue(value.color)}`}
-    | ${value.radius && `, raidus = ${basic.px.writeValue(value.radius)}`}
+    | ${value.radius && `, radius = ${basic.px.writeValue(value.radius)}`}
     | }
     `;
   },
   writeType: (value: Border) => 'Border',
 };
+
+export function parseShadow(css: string): Shadow {
+  const [ho, vo, b, s] = css.split(' ');
+
+  const offset = [basic.px.parse(ho), basic.px.parse(vo)];
+  const blur = basic.px.parse(b);
+  const size = basic.px.parse(s) || 0;
+
+  const colorStart = css.indexOf('rgb');
+  const colorString = css.substring(colorStart);
+  const color = basic.color.parse(colorString);
+
+  const result : Shadow = {
+    offset: offset,
+    blur,
+    size,
+    color,
+  };
+
+  return result;
+}
+
+export const shadow : ValueObject<Shadow> = {
+  parse: (css: string) => {
+    return {} as any;
+  },
+  writeValue: (value: Shadow) => {
+    return mls`
+    | { offset = (${basic.px.writeValue(value.offset[0])}, ${basic.px.writeValue(value.offset[1])})
+    | , blur = ${basic.px.writeValue(value.blur)}
+    | , size = ${basic.px.writeValue(value.size)}
+    | , color = ${basic.color.writeValue(value.color)}
+    | }
+    `;
+  },
+  writeType: (value: Shadow) => 'Shadow',
+};
+

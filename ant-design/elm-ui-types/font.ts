@@ -36,7 +36,7 @@ export const fontWeight : ValueObject<FontWeight> = {
     } as any)[css] || 'medium';
   },
   writeValue: (value: FontWeight) => {
-    return value;
+    return `Font.${value}`;
   },
   writeType: (value: FontWeight) => 'Attribute msg',
 };
@@ -51,7 +51,7 @@ export const fontAlign : ValueObject<FontAlign> = {
     } as any)[css] || 'center';
   },
   writeValue: (value: FontAlign) => {
-    return value;
+    return `Font.${value}`;
   },
   writeType: (value: FontAlign) => 'Attribute msg',
 };

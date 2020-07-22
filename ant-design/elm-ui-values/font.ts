@@ -52,3 +52,20 @@ export function fontWeight(declarations: Array<{name:string,value:string}>) {
 
   return result;
 }
+
+export function fontAlign(declarations: Array<{name:string,value:string}>) {
+  const elmDeclarations = [];
+
+  const result = subset(declarations, ['text_align']).map(decl => {
+    if(decl.name === 'text_align') {
+      return {
+        name: 'fontAlign',
+        value: {
+          fontAlign: font.fontAlign.parse(decl.value),
+        }
+      }
+    }
+  }).filter(x => !!x);
+
+  return result;
+}

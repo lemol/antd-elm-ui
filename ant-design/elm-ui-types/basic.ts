@@ -29,10 +29,10 @@ export const color : ValueObject<Color> = {
     const { r, g, b, alpha } = value.object();
 
     if (alpha === 1 || alpha === undefined) {
-      return `rgb ${r} ${g} ${b}`;
+      return `rgb255 ${r} ${g} ${b}`;
     }
 
-    return `rgba ${r} ${g} ${b} ${alpha}`;
+    return `rgba255 ${r} ${g} ${b} ${alpha}`;
   },
   writeType: (value: Color) => 'Color',
 };

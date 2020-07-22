@@ -7,6 +7,7 @@ export type ElmValue =
   basic.PxValue
   | basic.ColorValue
   | border.BorderValue
+  | border.ShadowValue
   | font.FontWeightValue
   | font.FontAlignValue
 
@@ -30,6 +31,10 @@ export function isBorderValue(value: ElmValue): value is border.BorderValue {
   return (value as border.BorderValue).border !== undefined;
 }
 
+export function isShadowValue(value: ElmValue): value is border.ShadowValue {
+  return (value as border.ShadowValue).shadow !== undefined;
+}
+
 export function writeElmValue(value: ElmValue): string {
   if (isPxValue(value)) {
     return basic.px.writeValue(value.px);
@@ -41,6 +46,8 @@ export function writeElmValue(value: ElmValue): string {
     return font.fontAlign.writeValue(value.fontAlign);
   } else if (isBorderValue(value)) {
     return border.border.writeValue(value.border);
+  } else if (isShadowValue(value)) {
+    return border.shadow.writeValue(value.shadow);
   }
 
   return 'no-writer';

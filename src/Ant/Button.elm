@@ -49,7 +49,7 @@ default =
 
 primary : List (Attribute msg) -> Button msg -> Element msg
 primary =
-    base Theme.buttonPrimary
+    base Theme.button
 
 
 
@@ -59,17 +59,23 @@ primary =
 base theme attrs opts =
     let
         attrsBase =
-            [ Font.medium
-            , Font.size theme.font.size
-            , Border.rounded theme.border.radius
-            , Element.centerX
-            , Element.height (px theme.size.height)
-            , Element.paddingXY theme.position.paddingX 4
-            , Font.color theme.color.font
-            , Background.color theme.color.background
-            , Border.color theme.color.border
+            [ Element.height <| px theme.height
+            , Font.color theme.fontColor
+            , Font.size theme.fontSize
+            , theme.fontWeight
+            , theme.fontAlign
             , Border.width theme.border.width
-            , Border.shadow theme.border.shadow
+            , theme.border.style
+            , Border.rounded theme.border.radius
+            , Border.color theme.border.color
+            , Border.shadow theme.shadow
+            , Background.color theme.backgroundColor
+            , Element.paddingEach
+                { top = theme.paddingTop
+                , right = theme.paddingRight
+                , bottom = theme.paddingBottom
+                , left = theme.paddingLeft
+                }
             ]
     in
     Element.Input.button

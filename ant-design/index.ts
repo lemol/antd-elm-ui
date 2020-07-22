@@ -1,5 +1,7 @@
 import fs from 'fs';
 import css from 'css';
+import _ from 'lodash';
+import * as elmUi from './elm-ui';
 
 
 const antdpath = __dirname + '/antd.css';
@@ -23,10 +25,22 @@ function buildRule(cssRule: css.Rule) {
   }
 
   const firstName = buildRuleName(selectors[0]);
+  const declarations = cssRule.declarations?.map(buildDeclaration) || [];
+  const otherNames = _.tail(selectors).map(buildRuleName);
 
-  console.log(cssRule.declarations);
+  const first = {
+    [firstName]: {
+      declarations,
+    }
+  };
 
-  return firstName;
+  const others = otherNames.map(name => ({
+    [name]: {
+      declarations,
+    }
+  }));
+
+  return _.concat([first], others);
 }
 
 function buildRuleName(cssName: string) {
@@ -34,5 +48,40 @@ function buildRuleName(cssName: string) {
     .replace(/-/g, '_');
 }
 
-console.log(rules);
+function buildDeclaration(cssDeclaration: css.Declaration) {
+  if (!cssDeclaration.property || !cssDeclaration.value) {
+    return;
+  }
+
+  const name = buildDeclarationName(cssDeclaration.property);
+  const value = buildDeclarationValue(cssDeclaration.value);
+
+  return {
+    name,
+    value,
+  }
+}
+
+function buildDeclarationName(cssName: string) {
+  return cssName.replace(/-/g, '_');
+}
+
+function buildDeclarationValue(cssValue: string) {
+  return cssValue.replace(/-/g, '_');
+}
+
+function merger<T>(a: Array<T>, b: Array<T>, key: string) {
+  if (_.isArray(a)) {
+    return a.concat(b);
+  }
+}
+
+const final = _.reduce(_.flatten(rules), (acc, act) => _.mergeWith(acc, act, merger), {});
+
+const btnDecls = (final as any).btn;
+
+const rr = elmUi.buildDeclarations('btn', btnDecls.declarations);
+
+console.log(btnDecls.declarations);
+console.log(elmUi.writeElmRecord(rr));
 

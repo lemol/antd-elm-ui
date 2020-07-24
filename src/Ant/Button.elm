@@ -1,4 +1,4 @@
-module Ant.Button exposing (Attribute, default, primary)
+module Ant.Button exposing (Attribute, dashed, default, primary, text)
 
 import Ant.Theme as Theme
 import Element exposing (Element, px)
@@ -44,12 +44,22 @@ type alias Button msg =
 
 default : List (Attribute msg) -> Button msg -> Element msg
 default =
-    base Theme.button
+    base Theme.button_default
 
 
 primary : List (Attribute msg) -> Button msg -> Element msg
 primary =
-    base Theme.button
+    base Theme.button_primary
+
+
+dashed : List (Attribute msg) -> Button msg -> Element msg
+dashed =
+    base Theme.button_dashed
+
+
+text : List (Attribute msg) -> Button msg -> Element msg
+text =
+    base Theme.button_text
 
 
 

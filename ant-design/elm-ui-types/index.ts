@@ -6,10 +6,12 @@ import * as font from './font';
 export type ElmValue =
   basic.PxValue
   | basic.ColorValue
-  | border.BorderValue
-  | border.ShadowValue
   | font.FontWeightValue
   | font.FontAlignValue
+  | font.FontVariantValue
+  | font.FontFamilyValue
+  | border.BorderValue
+  | border.ShadowValue
 
 export function isPxValue(value: ElmValue): value is basic.PxValue {
   return (value as basic.PxValue).px !== undefined;
@@ -25,6 +27,14 @@ export function isFontWeightValue(value: ElmValue): value is font.FontWeightValu
 
 export function isFontAlignValue(value: ElmValue): value is font.FontAlignValue {
   return (value as font.FontAlignValue).fontAlign !== undefined;
+}
+
+export function isFontVariantValue(value: ElmValue): value is font.FontVariantValue {
+  return (value as font.FontVariantValue).fontVariant !== undefined;
+}
+
+export function isFontFamilyValue(value: ElmValue): value is font.FontFamilyValue {
+  return (value as font.FontFamilyValue).fontFamily !== undefined;
 }
 
 export function isBorderValue(value: ElmValue): value is border.BorderValue {
@@ -44,6 +54,10 @@ export function writeElmValue(value: ElmValue): string {
     return font.fontWeight.writeValue(value.fontWeight);
   } else if (isFontAlignValue(value)) {
     return font.fontAlign.writeValue(value.fontAlign);
+  } else if (isFontVariantValue(value)) {
+    return font.fontVariant.writeValue(value.fontVariant);
+  } else if (isFontFamilyValue(value)) {
+    return font.fontFamily.writeValue(value.fontFamily);
   } else if (isBorderValue(value)) {
     return border.border.writeValue(value.border);
   } else if (isShadowValue(value)) {

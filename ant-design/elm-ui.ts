@@ -56,6 +56,8 @@ export function buildDeclarations(name: string, declarations: Array<NameValue>) 
       font.fontSize,
       font.fontWeight,
       font.fontAlign,
+      font.fontVariant,
+      font.fontFamily,
       border.border,
       border.shadow,
     ]

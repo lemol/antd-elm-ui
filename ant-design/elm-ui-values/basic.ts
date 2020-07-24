@@ -49,10 +49,9 @@ export function padding(declarations: Array<{name:string,value:string}>) {
 }
 
 export function backgroundColor(declarations: Array<{name:string,value:string}>) {
-  const elmDeclarations = [];
 
-  const result = subset(declarations, ['background']).map(decl => {
-    if(decl.name === 'background') {
+  const result = subset(declarations, ['background', 'background_color']).map(decl => {
+    if(decl.name === 'background' || decl.name === 'background_color') {
       return {
         name: 'backgroundColor',
         value: {

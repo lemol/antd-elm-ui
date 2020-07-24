@@ -14,7 +14,7 @@ export function isRule(rule: css.AtRule): rule is css.Rule {
 }
 
 const rules = ast.stylesheet?.rules
-  .filter(x => isRule(x) && x.selectors?.includes('.ant-btn'))
+  .filter(x => isRule(x))
   .map(buildRule);
 
 function buildRule(cssRule: css.Rule) {
@@ -67,7 +67,7 @@ function buildDeclarationName(cssName: string) {
 }
 
 function buildDeclarationValue(cssValue: string) {
-  return cssValue.replace(/-/g, '_');
+  return cssValue;
 }
 
 function merger<T>(a: Array<T>, b: Array<T>, key: string) {
@@ -79,7 +79,11 @@ function merger<T>(a: Array<T>, b: Array<T>, key: string) {
 const final = _.reduce(_.flatten(rules), (acc, act) => _.mergeWith(acc, act, merger), {});
 
 const selectors = [
+  'body',
   'btn',
+  'btn_primary',
+  'btn_dashed',
+  'btn_text',
 ];
 
 const elmModule = elmUi.buildElmModule('Ant.ThemeValues', selectors, final);

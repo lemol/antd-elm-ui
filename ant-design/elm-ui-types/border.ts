@@ -37,6 +37,7 @@ export function borderStyle(css: string): BorderStyle {
 export function parseBorder(css: {
   border?: string,
   borderColor?: string,
+  borderStyle?: string,
   borderRadius?: string
 }): Border {
   const result : Border = {
@@ -52,6 +53,10 @@ export function parseBorder(css: {
 
   if (css.borderRadius) {
     parseAndSetBorderRadius(css.borderRadius, result);
+  }
+
+  if (css.borderStyle) {
+    result.style = borderStyle(css.borderStyle);
   }
 
   return result;
@@ -79,18 +84,28 @@ export const border : ValueObject<Border> = {
     return {} as any;
   },
   writeValue: (value: Border) => {
-    return mls`
-    | { width = ${basic.px.writeValue(value.width || 1)}
-    | , style = Border.${value.style}
-    | ${value.color && `, color = ${basic.color.writeValue(value.color)}`}
-    | ${value.radius && `, radius = ${basic.px.writeValue(value.radius)}`}
-    | }
-    `;
+    const props = [
+      value.width !== undefined && `width = ${basic.px.writeValue(value.width)}`,
+      value.style && `style = Border.${value.style}`,
+      value.color && `color = ${basic.color.writeValue(value.color)}`,
+      value.radius && `radius = ${basic.px.writeValue(value.radius)}`,
+    ].filter(x => !!x);
+
+    return `{ ${props.join(',\n')} }`;
   },
   writeType: (value: Border) => 'Border',
 };
 
 export function parseShadow(css: string): Shadow {
+  if (css === 'none') {
+    return {
+      offset: [ 0, 0 ],
+      blur: 0,
+      size: 0,
+      color: basic.color.parse('transparent'),
+    };
+  }
+
   const [ho, vo, b, s] = css.split(' ');
 
   const offset = [basic.px.parse(ho), basic.px.parse(vo)];

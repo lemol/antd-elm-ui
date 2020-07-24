@@ -69,3 +69,33 @@ export function fontAlign(declarations: Array<{name:string,value:string}>) {
 
   return result;
 }
+
+export function fontVariant(declarations: Array<{name:string,value:string}>) {
+  const result = subset(declarations, ['font_variant']).map(decl => {
+    if(decl.name === 'font_variant') {
+      return {
+        name: 'fontVariant',
+        value: {
+          fontVariant: font.fontVariant.parse(decl.value),
+        }
+      }
+    }
+  }).filter(x => !!x);
+
+  return result;
+}
+
+export function fontFamily(declarations: Array<{name:string,value:string}>) {
+  const result = subset(declarations, ['font_family']).map(decl => {
+    if(decl.name === 'font_family') {
+      return {
+        name: 'fontFamily',
+        value: {
+          fontFamily: font.fontFamily.parse(decl.value),
+        }
+      }
+    }
+  }).filter(x => !!x);
+
+  return result;
+}

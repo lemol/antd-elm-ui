@@ -45,7 +45,8 @@ function buildRule(cssRule: css.Rule) {
 
 function buildRuleName(cssName: string) {
   return cssName.replace('.ant-', '')
-    .replace(/-/g, '_');
+    .replace(/-/g, '_')
+    .replace(/:/g, '__');
 }
 
 function buildDeclaration(cssDeclaration: css.Declaration) {
@@ -84,7 +85,15 @@ const selectors = [
   'btn_primary',
   'btn_dashed',
   'btn_text',
-];
+].reduce((acc, act) =>
+  [
+    ...acc,
+    act,
+    `${act}__hover`,
+    `${act}__active`,
+    `${act}__focus`,
+  ]
+, [] as string[]);
 
 const elmModule = elmUi.buildElmModule('Ant.ThemeValues', selectors, final);
 console.log(elmUi.writeElmModule(elmModule));

@@ -1,4 +1,4 @@
-module Ant.ThemeValues exposing (body, btn, btn_dashed, btn_primary, btn_text)
+module Ant.ThemeValues exposing (body, btn, btn__active, btn__focus, btn__hover, btn_dashed, btn_dashed__active, btn_dashed__focus, btn_dashed__hover, btn_primary, btn_primary__active, btn_primary__focus, btn_primary__hover, btn_text, btn_text__active, btn_text__focus, btn_text__hover)
 
 import Element exposing (Color, rgb255, rgba255)
 import Element.Border as Border
@@ -55,6 +55,27 @@ btn =
     }
 
 
+btn__active =
+    { backgroundColor = rgb255 255 255 255
+    , fontColor = rgb255 9 109 217
+    , border = { color = rgb255 9 109 217 }
+    }
+
+
+btn__focus =
+    { backgroundColor = rgb255 255 255 255
+    , fontColor = rgb255 64 169 255
+    , border = { color = rgb255 64 169 255 }
+    }
+
+
+btn__hover =
+    { backgroundColor = rgb255 255 255 255
+    , fontColor = rgb255 64 169 255
+    , border = { color = rgb255 64 169 255 }
+    }
+
+
 btn_primary =
     { backgroundColor = rgb255 24 144 255
     , fontColor = rgb255 255 255 255
@@ -68,6 +89,27 @@ btn_primary =
     }
 
 
+btn_primary__hover =
+    { backgroundColor = rgb255 64 169 255
+    , fontColor = rgb255 255 255 255
+    , border = { color = rgb255 64 169 255 }
+    }
+
+
+btn_primary__focus =
+    { backgroundColor = rgb255 64 169 255
+    , fontColor = rgb255 255 255 255
+    , border = { color = rgb255 64 169 255 }
+    }
+
+
+btn_primary__active =
+    { backgroundColor = rgb255 9 109 217
+    , fontColor = rgb255 255 255 255
+    , border = { color = rgb255 9 109 217 }
+    }
+
+
 btn_dashed =
     { backgroundColor = rgb255 255 255 255
     , fontColor = rgba255 0 0 0 0.65
@@ -75,6 +117,27 @@ btn_dashed =
         { style = Border.dashed
         , color = rgb255 217 217 217
         }
+    }
+
+
+btn_dashed__hover =
+    { backgroundColor = rgb255 255 255 255
+    , fontColor = rgb255 64 169 255
+    , border = { color = rgb255 64 169 255 }
+    }
+
+
+btn_dashed__focus =
+    { backgroundColor = rgb255 255 255 255
+    , fontColor = rgb255 64 169 255
+    , border = { color = rgb255 64 169 255 }
+    }
+
+
+btn_dashed__active =
+    { backgroundColor = rgb255 255 255 255
+    , fontColor = rgb255 9 109 217
+    , border = { color = rgb255 9 109 217 }
     }
 
 
@@ -88,4 +151,25 @@ btn_text =
         , size = 0
         , color = rgba255 0 0 0 0
         }
+    }
+
+
+btn_text__hover =
+    { backgroundColor = rgba255 0 0 0 0
+    , fontColor = rgb255 64 169 255
+    , border = { color = rgba255 0 0 0 0 }
+    }
+
+
+btn_text__focus =
+    { backgroundColor = rgba255 0 0 0 0
+    , fontColor = rgb255 64 169 255
+    , border = { color = rgba255 0 0 0 0 }
+    }
+
+
+btn_text__active =
+    { backgroundColor = rgba255 0 0 0 0
+    , fontColor = rgb255 9 109 217
+    , border = { color = rgba255 0 0 0 0 }
     }

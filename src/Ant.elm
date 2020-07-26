@@ -22,5 +22,13 @@ layoutBase theme attrs =
             , Background.color theme.backgroundColor
             ]
     in
-    Element.layout
+    Element.layoutWith
+        { options =
+            [ Element.focusStyle
+                { borderColor = Nothing
+                , backgroundColor = Nothing
+                , shadow = Nothing
+                }
+            ]
+        }
         (baseAttrs ++ attrs)

@@ -103,5 +103,6 @@ function writeElmRecordValue({ name, value }: ElmRecordValue) : string {
 
 function buildForEach(declarations: Array<NameValue>, builders: Array<any>) {
   const result = _.flatten(builders.map((f: any) => f(declarations)));
-  return result;
+  const result2 = _.uniqBy(result, 'name');
+  return result2;
 }

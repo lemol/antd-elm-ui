@@ -69,26 +69,40 @@ text =
 base theme attrs opts =
     let
         attrsBase =
-            [ Element.height <| px theme.height
-            , Font.color theme.fontColor
-            , Font.size theme.fontSize
-            , theme.fontWeight
-            , theme.fontAlign
-            , Border.width theme.border.width
-            , theme.border.style
-            , Border.rounded theme.border.radius
-            , Border.color theme.border.color
-            , Border.shadow theme.shadow
-            , Background.color theme.backgroundColor
+            [ Element.height <| px theme.normal.height
+            , Font.color theme.normal.fontColor
+            , Font.size theme.normal.fontSize
+            , theme.normal.fontWeight
+            , theme.normal.fontAlign
+            , Border.width theme.normal.border.width
+            , theme.normal.border.style
+            , Border.rounded theme.normal.border.radius
+            , Border.color theme.normal.border.color
+            , Border.shadow theme.normal.shadow
+            , Background.color theme.normal.backgroundColor
             , Element.paddingEach
-                { top = theme.paddingTop
-                , right = theme.paddingRight
-                , bottom = theme.paddingBottom
-                , left = theme.paddingLeft
+                { top = theme.normal.paddingTop
+                , right = theme.normal.paddingRight
+                , bottom = theme.normal.paddingBottom
+                , left = theme.normal.paddingLeft
                 }
+            , Element.mouseOver
+                [ Background.color theme.hover.backgroundColor
+                , Font.color theme.hover.fontColor
+                , Border.color theme.hover.border.color
+                ]
+            , Element.mouseDown
+                [ Background.color theme.active.backgroundColor
+                , Font.color theme.active.fontColor
+                , Border.color theme.active.border.color
+                ]
+            , Element.focused
+                [ Background.color theme.focus.backgroundColor
+                , Font.color theme.focus.fontColor
+                , Border.color theme.focus.border.color
+                ]
             ]
     in
     Element.Input.button
         attrsBase
         opts
-

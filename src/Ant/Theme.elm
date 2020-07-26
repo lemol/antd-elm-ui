@@ -8,53 +8,219 @@ body =
 
 
 button_default =
-    Values.btn
+    { normal = Values.btn
+    , active = Values.btn__active
+    , focus = Values.btn__focus
+    , hover = Values.btn__hover
+    }
 
 
 button_primary =
     let
-        border =
-            button_default.border
+        default_normal =
+            button_default.normal
+
+        default_hover =
+            button_default.hover
+
+        default_active =
+            button_default.active
+
+        default_focus =
+            button_default.focus
     in
     { button_default
-        | backgroundColor = Values.btn_primary.backgroundColor
-        , fontColor = Values.btn_primary.fontColor
-        , border =
-            { border
-                | color = Values.btn_primary.border.color
+        | normal =
+            let
+                border =
+                    default_normal.border
+            in
+            { default_normal
+                | backgroundColor = Values.btn_primary.backgroundColor
+                , fontColor = Values.btn_primary.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_primary.border.color
+                    }
             }
-        , shadow = button_default.shadow
+        , hover =
+            let
+                border =
+                    default_hover.border
+            in
+            { default_hover
+                | backgroundColor = Values.btn_primary__hover.backgroundColor
+                , fontColor = Values.btn_primary__hover.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_primary__hover.border.color
+                    }
+            }
+        , active =
+            let
+                border =
+                    default_active.border
+            in
+            { default_active
+                | backgroundColor = Values.btn_primary__active.backgroundColor
+                , fontColor = Values.btn_primary__active.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_primary__active.border.color
+                    }
+            }
+        , focus =
+            let
+                border =
+                    default_focus.border
+            in
+            { default_focus
+                | backgroundColor = Values.btn_primary__focus.backgroundColor
+                , fontColor = Values.btn_primary__focus.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_primary__focus.border.color
+                    }
+            }
     }
 
 
 button_dashed =
     let
-        border =
-            button_default.border
+        default_normal =
+            button_default.normal
+
+        default_hover =
+            button_default.hover
+
+        default_active =
+            button_default.active
+
+        default_focus =
+            button_default.focus
     in
     { button_default
-        | backgroundColor = Values.btn_dashed.backgroundColor
-        , fontColor = Values.btn_dashed.fontColor
-        , border =
-            { border
-                | color = Values.btn_dashed.border.color
-                , style = Values.btn_dashed.border.style
+        | normal =
+            let
+                border =
+                    default_normal.border
+            in
+            { default_normal
+                | backgroundColor = Values.btn_dashed.backgroundColor
+                , fontColor = Values.btn_dashed.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_dashed.border.color
+                        , style = Values.btn_dashed.border.style
+                    }
             }
-        , shadow = button_default.shadow
+        , hover =
+            let
+                border =
+                    default_hover.border
+            in
+            { default_hover
+                | backgroundColor = Values.btn_dashed__hover.backgroundColor
+                , fontColor = Values.btn_dashed__hover.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_dashed__hover.border.color
+                    }
+            }
+        , active =
+            let
+                border =
+                    default_active.border
+            in
+            { default_active
+                | backgroundColor = Values.btn_dashed__active.backgroundColor
+                , fontColor = Values.btn_dashed__active.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_dashed__active.border.color
+                    }
+            }
+        , focus =
+            let
+                border =
+                    default_focus.border
+            in
+            { default_focus
+                | backgroundColor = Values.btn_dashed__focus.backgroundColor
+                , fontColor = Values.btn_dashed__focus.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_dashed__focus.border.color
+                    }
+            }
     }
 
 
 button_text =
     let
-        border =
-            button_default.border
+        default_normal =
+            button_default.normal
+
+        default_hover =
+            button_default.hover
+
+        default_active =
+            button_default.active
+
+        default_focus =
+            button_default.focus
     in
     { button_default
-        | backgroundColor = Values.btn_text.backgroundColor
-        , fontColor = Values.btn_text.fontColor
-        , border =
-            { border
-                | color = Values.btn_text.border.color
+        | normal =
+            let
+                border =
+                    default_normal.border
+            in
+            { default_normal
+                | backgroundColor = Values.btn_text.backgroundColor
+                , fontColor = Values.btn_text.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_text.border.color
+                    }
             }
-        , shadow = button_default.shadow
+        , hover =
+            let
+                border =
+                    default_hover.border
+            in
+            { default_hover
+                | backgroundColor = Values.btn_text__hover.backgroundColor
+                , fontColor = Values.btn_text__hover.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_text__hover.border.color
+                    }
+            }
+        , active =
+            let
+                border =
+                    default_active.border
+            in
+            { default_active
+                | backgroundColor = Values.btn_text__active.backgroundColor
+                , fontColor = Values.btn_text__active.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_text__active.border.color
+                    }
+            }
+        , focus =
+            let
+                border =
+                    default_focus.border
+            in
+            { default_focus
+                | backgroundColor = Values.btn_text__focus.backgroundColor
+                , fontColor = Values.btn_text__focus.fontColor
+                , border =
+                    { border
+                        | color = Values.btn_text__focus.border.color
+                    }
+            }
     }

@@ -1,4 +1,4 @@
-module Ant.Button exposing (Attribute, dashed, default, primary, text)
+module Ant.Button exposing (Attribute, dashed, default, defaultSize, large, primary, small, text)
 
 import Ant.Theme as Theme
 import Element exposing (Element, px)
@@ -15,7 +15,7 @@ type ButtonShape
 
 type ButtonSize
     = Large
-    | Middle
+    | DefaultSize
     | Small
 
 
@@ -36,34 +36,44 @@ type Attribute msg
     | Root (Element.Attribute msg)
 
 
-type alias Button msg =
+type alias ButtonOptions msg =
     { onPress : Maybe msg
     , label : Element msg
     }
 
 
-default : List (Attribute msg) -> Button msg -> Element msg
+type alias Props =
+    { size : ButtonSize
+    }
+
+
+defaultProps =
+    { size = DefaultSize
+    }
+
+
+default : List (Attribute msg) -> ButtonOptions msg -> Element msg
 default =
     base Theme.button_default
 
 
-primary : List (Attribute msg) -> Button msg -> Element msg
+primary : List (Attribute msg) -> ButtonOptions msg -> Element msg
 primary =
     base Theme.button_primary
 
 
-dashed : List (Attribute msg) -> Button msg -> Element msg
+dashed : List (Attribute msg) -> ButtonOptions msg -> Element msg
 dashed =
     base Theme.button_dashed
 
 
-text : List (Attribute msg) -> Button msg -> Element msg
+text : List (Attribute msg) -> ButtonOptions msg -> Element msg
 text =
     base Theme.button_text
 
 
 
---base : ButtonTheme -> List (Attribute msg) -> Button msg -> Element msg
+--base : ButtonTheme -> List (Attribute msg) -> ButtonOptions msg -> Element msg
 
 
 base theme attrs opts =
@@ -94,11 +104,11 @@ base theme attrs opts =
                 ]
             ]
 
-        size =
-            Small
+        props =
+            fromAttributes attrs
 
         sizeAttrs =
-            case size of
+            case props.size of
                 Small ->
                     [ Element.height <| px theme.small.height
                     , Element.paddingEach
@@ -111,7 +121,7 @@ base theme attrs opts =
                     , Border.rounded theme.small.border.radius
                     ]
 
-                Middle ->
+                DefaultSize ->
                     [ Element.height <| px theme.normal.height
                     , Element.paddingEach
                         { top = theme.normal.paddingTop
@@ -138,3 +148,40 @@ base theme attrs opts =
     Element.Input.button
         (attrsBase ++ sizeAttrs)
         opts
+
+
+
+-- ATTRIBUTES
+
+
+small : Attribute msg
+small =
+    Size Small
+
+
+defaultSize : Attribute msg
+defaultSize =
+    Size DefaultSize
+
+
+large : Attribute msg
+large =
+    Size Large
+
+
+
+-- INTERNAL
+
+
+fromAttributes : List (Attribute msg) -> Props
+fromAttributes =
+    let
+        f act acc =
+            case act of
+                Size x ->
+                    { acc | size = x }
+
+                _ ->
+                    acc
+    in
+    List.foldl f defaultProps

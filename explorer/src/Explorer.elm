@@ -8,22 +8,84 @@ import UIExplorer
     exposing
         ( UIExplorerProgram
         , defaultConfig
-        , explore
+        , category
+        , createCategories
+        , exploreWithCategories
         , storiesOf
+        , logoFromUrl
         )
+
+
+
+config =
+    { defaultConfig
+        | customHeader =
+            Just
+                { title = "Ant Design Elm-UI"
+                , logo = logoFromUrl "ant-design-elm-ui.png"
+                , titleColor = Just "#FFFFFF"
+                , bgColor = Just "#22292f"
+                }
+    }
 
 
 main : UIExplorerProgram {} () {}
 main =
-    explore
-        defaultConfig
-        [ storiesOf
-            "Welcome"
-            [ ( "Default", \_ -> toHtml <| Button.default [] { onPress = Nothing, label = Element.text "Default Button" }, {} )
-            , ( "Primary", \_ -> toHtml <| Button.primary [] { onPress = Nothing, label = Element.text "Primary Button" }, {} )
-            , ( "Dashed", \_ -> toHtml <| Button.dashed [] { onPress = Nothing, label = Element.text "Dashed Button" }, {} )
-            , ( "Text", \_ -> toHtml <| Button.text [] { onPress = Nothing, label = Element.text "Text Button" }, {} )
-            ]
+    exploreWithCategories
+        config
+        (createCategories
+            |> category
+                "General"
+                generalStories
+        )
+
+
+generalStories =
+    [ buttonStories
+    ]
+
+
+buttonStories =
+    storiesOf
+        "Button"
+        [ ( "Type", \_ -> toHtml buttonTypes , {} )
+        , ( "Size", \_ -> toHtml buttonSizes , {} )
+        ]
+
+
+buttonTypes =
+    buttonView Button.defaultSize
+
+
+buttonSizes =
+    buttonView Button.large
+
+
+buttonView : Button.Attribute msg -> Element msg
+buttonView sizeAttribute =
+    Element.row
+        [ Element.spacing 8
+        ]
+        [ Button.default
+            [ sizeAttribute ]
+            { onPress = Nothing
+            , label = Element.text "Default Button"
+            }
+        , Button.primary
+            [ sizeAttribute ]
+            { onPress = Nothing
+            , label = Element.text "Primary Button"
+            }
+        , Button.dashed
+            [ sizeAttribute ]
+            { onPress = Nothing
+            , label = Element.text "Dashed Button"
+            }
+        , Button.text
+            [ sizeAttribute ]
+            { onPress = Nothing
+            , label = Element.text "Text Button"
+            }
         ]
 
 

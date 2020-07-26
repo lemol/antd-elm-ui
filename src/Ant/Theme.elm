@@ -12,6 +12,8 @@ button_default =
     , active = Values.btn__active
     , focus = Values.btn__focus
     , hover = Values.btn__hover
+    , small = Values.btn__sm
+    , large = Values.btn__lg
     }
 
 

@@ -45,6 +45,8 @@ function buildRule(cssRule: css.Rule) {
 
 function buildRuleName(cssName: string) {
   return cssName.replace('.ant-', '')
+    .replace(/-sm$/g, '__sm')
+    .replace(/-lg$/g, '__lg')
     .replace(/-/g, '_')
     .replace(/:/g, '__');
 }
@@ -92,6 +94,8 @@ const selectors = [
     `${act}__hover`,
     `${act}__active`,
     `${act}__focus`,
+    `${act}__sm`,
+    `${act}__lg`,
   ]
 , [] as string[]);
 

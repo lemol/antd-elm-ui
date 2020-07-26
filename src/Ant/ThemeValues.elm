@@ -1,4 +1,4 @@
-module Ant.ThemeValues exposing (body, btn, btn__active, btn__focus, btn__hover, btn_dashed, btn_dashed__active, btn_dashed__focus, btn_dashed__hover, btn_primary, btn_primary__active, btn_primary__focus, btn_primary__hover, btn_text, btn_text__active, btn_text__focus, btn_text__hover)
+module Ant.ThemeValues exposing (body, btn, btn__active, btn__focus, btn__hover, btn__lg, btn__sm, btn_dashed, btn_dashed__active, btn_dashed__focus, btn_dashed__hover, btn_primary, btn_primary__active, btn_primary__focus, btn_primary__hover, btn_text, btn_text__active, btn_text__focus, btn_text__hover)
 
 import Element exposing (Color, rgb255, rgba255)
 import Element.Border as Border
@@ -7,6 +7,7 @@ import Element.Font as Font
 
 body =
     { height = 100
+    , width = 100
     , backgroundColor = rgb255 255 255 255
     , fontColor = rgba255 0 0 0 0.65
     , fontSize = 14
@@ -66,6 +67,28 @@ btn__focus =
     { backgroundColor = rgb255 255 255 255
     , fontColor = rgb255 64 169 255
     , border = { color = rgb255 64 169 255 }
+    }
+
+
+btn__lg =
+    { height = 40
+    , paddingTop = 6
+    , paddingRight = 15
+    , paddingBottom = 6
+    , paddingLeft = 15
+    , fontSize = 16
+    , border = { radius = 2 }
+    }
+
+
+btn__sm =
+    { height = 24
+    , paddingTop = 0
+    , paddingRight = 7
+    , paddingBottom = 0
+    , paddingLeft = 7
+    , fontSize = 14
+    , border = { radius = 2 }
     }
 
 

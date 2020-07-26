@@ -69,23 +69,14 @@ text =
 base theme attrs opts =
     let
         attrsBase =
-            [ Element.height <| px theme.normal.height
-            , Font.color theme.normal.fontColor
-            , Font.size theme.normal.fontSize
+            [ Font.color theme.normal.fontColor
             , theme.normal.fontWeight
             , theme.normal.fontAlign
             , Border.width theme.normal.border.width
             , theme.normal.border.style
-            , Border.rounded theme.normal.border.radius
             , Border.color theme.normal.border.color
             , Border.shadow theme.normal.shadow
             , Background.color theme.normal.backgroundColor
-            , Element.paddingEach
-                { top = theme.normal.paddingTop
-                , right = theme.normal.paddingRight
-                , bottom = theme.normal.paddingBottom
-                , left = theme.normal.paddingLeft
-                }
             , Element.mouseOver
                 [ Background.color theme.hover.backgroundColor
                 , Font.color theme.hover.fontColor
@@ -102,7 +93,48 @@ base theme attrs opts =
                 , Border.color theme.focus.border.color
                 ]
             ]
+
+        size =
+            Small
+
+        sizeAttrs =
+            case size of
+                Small ->
+                    [ Element.height <| px theme.small.height
+                    , Element.paddingEach
+                        { top = theme.small.paddingTop
+                        , right = theme.small.paddingRight
+                        , bottom = theme.small.paddingBottom
+                        , left = theme.small.paddingLeft
+                        }
+                    , Font.size theme.small.fontSize
+                    , Border.rounded theme.small.border.radius
+                    ]
+
+                Middle ->
+                    [ Element.height <| px theme.normal.height
+                    , Element.paddingEach
+                        { top = theme.normal.paddingTop
+                        , right = theme.normal.paddingRight
+                        , bottom = theme.normal.paddingBottom
+                        , left = theme.normal.paddingLeft
+                        }
+                    , Font.size theme.normal.fontSize
+                    , Border.rounded theme.normal.border.radius
+                    ]
+
+                Large ->
+                    [ Element.height <| px theme.large.height
+                    , Element.paddingEach
+                        { top = theme.large.paddingTop
+                        , right = theme.large.paddingRight
+                        , bottom = theme.large.paddingBottom
+                        , left = theme.large.paddingLeft
+                        }
+                    , Font.size theme.large.fontSize
+                    , Border.rounded theme.large.border.radius
+                    ]
     in
     Element.Input.button
-        attrsBase
+        (attrsBase ++ sizeAttrs)
         opts

@@ -18,6 +18,23 @@ export function height(declarations: Array<{name:string,value:string}>) {
   return result;
 }
 
+export function width(declarations: Array<{name:string,value:string}>) {
+  const elmDeclarations = [];
+
+  const result = subset(declarations, ['width']).map(decl => {
+    if(decl.name === 'width') {
+      return {
+        name: decl.name,
+        value: {
+          px: basic.px.parse(decl.value),
+        }
+      }
+    }
+  }).filter(x => !!x);
+
+  return result;
+}
+
 export function padding(declarations: Array<{name:string,value:string}>) {
   const result = subset(declarations, ['padding']).map(decl => {
     if(decl.name === 'padding') {

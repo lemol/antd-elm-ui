@@ -50,6 +50,7 @@ export function buildDeclarations(name: string, declarations: Array<NameValue>) 
     declarations,
     [
       basic.height,
+      basic.width,
       basic.padding,
       basic.backgroundColor,
       font.color,

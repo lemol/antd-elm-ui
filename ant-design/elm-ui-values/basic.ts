@@ -21,8 +21,8 @@ export function height(declarations: Array<{name:string,value:string}>) {
 export function width(declarations: Array<{name:string,value:string}>) {
   const elmDeclarations = [];
 
-  const result = subset(declarations, ['width']).map(decl => {
-    if(decl.name === 'width') {
+  const result = subset(declarations, ['width', 'min_width']).map(decl => {
+    if(decl.name === 'width' || decl.name === 'min_width') {
       return {
         name: decl.name,
         value: {
@@ -36,7 +36,7 @@ export function width(declarations: Array<{name:string,value:string}>) {
 }
 
 export function padding(declarations: Array<{name:string,value:string}>) {
-  const result = subset(declarations, ['padding']).map(decl => {
+  const result1 = subset(declarations, ['padding']).map(decl => {
     if(decl.name === 'padding') {
       const splited = decl.value.split(' ');
       return splited;
@@ -53,16 +53,23 @@ export function padding(declarations: Array<{name:string,value:string}>) {
     return { top, right, bottom, left };
   })[0];
 
-  if (!result) {
-    return [];
-  }
+  const result2 = subset(declarations, ['padding_left', 'padding_right']).map(decl => {
+    const side = decl.name.replace('padding_', '');
+    return { [side]: decl.value };
+  })
+  .filter(x => !!x)
+  .reduce((acc, act) => ({ ...acc, ...act}), {});
 
-  return Object.keys(result).map(name => ({
+  const result = { ...result1, ...result2 };
+
+  const ret = Object.keys(result || []).map(name => ({
     name: `padding${name[0].toUpperCase()}${name.substring(1)}`,
     value: {
       px: basic.px.parse((result as any)[name]),
     },
   }));
+
+  return ret;
 }
 
 export function backgroundColor(declarations: Array<{name:string,value:string}>) {

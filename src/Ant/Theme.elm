@@ -14,6 +14,8 @@ button_default =
     , hover = Values.btn__hover
     , small = Values.btn__sm
     , large = Values.btn__lg
+    , circle = Values.btn_circle
+    , round = Values.btn_round
     }
 
 

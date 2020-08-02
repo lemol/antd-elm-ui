@@ -87,6 +87,10 @@ const selectors = [
   'btn_primary',
   'btn_dashed',
   'btn_text',
+  'btn_circle',
+  'btn_circle_outline',
+  'btn_round',
+  'btn_round_outline',
 ].reduce((acc, act) =>
   [
     ...acc,

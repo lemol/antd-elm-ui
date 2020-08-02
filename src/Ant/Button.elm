@@ -1,4 +1,16 @@
-module Ant.Button exposing (Attribute, dashed, default, defaultSize, large, primary, small, text)
+module Ant.Button exposing
+    ( Attribute
+    , circle
+    , dashed
+    , default
+    , defaultShape
+    , defaultSize
+    , large
+    , primary
+    , round
+    , small
+    , text
+    )
 
 import Ant.Theme as Theme
 import Element exposing (Element, px)
@@ -6,10 +18,12 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input
+import Utils exposing (style)
 
 
 type ButtonShape
-    = Circle
+    = DefaultShape
+    | Circle
     | Round
 
 
@@ -19,20 +33,9 @@ type ButtonSize
     | Small
 
 
-type ButtonType
-    = Default
-    | Primary
-    | Ghost
-    | Dashed
-    | Danger
-    | Link
-    | Text
-
-
 type Attribute msg
     = Shape ButtonShape
     | Size ButtonSize
-    | Type ButtonType
     | Root (Element.Attribute msg)
 
 
@@ -44,11 +47,14 @@ type alias ButtonOptions msg =
 
 type alias Props =
     { size : ButtonSize
+    , shape : ButtonShape
     }
 
 
+defaultProps : Props
 defaultProps =
     { size = DefaultSize
+    , shape = DefaultShape
     }
 
 
@@ -144,14 +150,46 @@ base theme attrs opts =
                     , Font.size theme.large.fontSize
                     , Border.rounded theme.large.border.radius
                     ]
+
+        shapeAttrs =
+            case props.shape of
+                DefaultShape ->
+                    []
+
+                Circle ->
+                    [ theme.circle.fontAlign
+                    , Element.paddingEach
+                        { top = theme.normal.paddingTop
+                        , bottom = theme.normal.paddingBottom
+                        , left = theme.circle.paddingLeft
+                        , right = theme.circle.paddingRight
+                        }
+                    , style "border-radius" "50%"
+                    , Element.width (Element.fill |> Element.minimum theme.circle.min_width)
+                    ]
+
+                Round ->
+                    [ Font.size theme.round.fontSize
+                    , Element.height <| px theme.round.height
+                    , Element.paddingEach
+                        { top = theme.round.paddingTop
+                        , bottom = theme.round.paddingBottom
+                        , left = theme.round.paddingLeft
+                        , right = theme.round.paddingRight
+                        }
+                    , Border.rounded theme.round.border.radius
+                    ]
     in
     Element.Input.button
-        (attrsBase ++ sizeAttrs)
+        (attrsBase
+            ++ sizeAttrs
+            ++ shapeAttrs
+        )
         opts
 
 
 
--- ATTRIBUTES
+-- SIZE ATTRIBUTES
 
 
 small : Attribute msg
@@ -170,6 +208,25 @@ large =
 
 
 
+-- SHAPE ATTRIBUTES
+
+
+defaultShape : Attribute msg
+defaultShape =
+    Shape DefaultShape
+
+
+circle : Attribute msg
+circle =
+    Shape Circle
+
+
+round : Attribute msg
+round =
+    Shape Round
+
+
+
 -- INTERNAL
 
 
@@ -180,6 +237,9 @@ fromAttributes =
             case act of
                 Size x ->
                     { acc | size = x }
+
+                Shape x ->
+                    { acc | shape = x }
 
                 _ ->
                     acc

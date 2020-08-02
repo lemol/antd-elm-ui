@@ -1,4 +1,4 @@
-module Ant.ThemeValues exposing (body, btn, btn__active, btn__focus, btn__hover, btn__lg, btn__sm, btn_dashed, btn_dashed__active, btn_dashed__focus, btn_dashed__hover, btn_primary, btn_primary__active, btn_primary__focus, btn_primary__hover, btn_text, btn_text__active, btn_text__focus, btn_text__hover)
+module Ant.ThemeValues exposing (body, btn, btn__active, btn__focus, btn__hover, btn__lg, btn__sm, btn_circle, btn_circle_outline, btn_dashed, btn_dashed__active, btn_dashed__focus, btn_dashed__hover, btn_primary, btn_primary__active, btn_primary__focus, btn_primary__hover, btn_round, btn_text, btn_text__active, btn_text__focus, btn_text__hover)
 
 import Element exposing (Color, rgb255, rgba255)
 import Element.Border as Border
@@ -195,4 +195,33 @@ btn_text__active =
     { backgroundColor = rgba255 0 0 0 0
     , fontColor = rgb255 9 109 217
     , border = { color = rgba255 0 0 0 0 }
+    }
+
+
+btn_round =
+    { height = 32
+    , paddingTop = 4
+    , paddingRight = 16
+    , paddingBottom = 4
+    , paddingLeft = 16
+    , fontSize = 14
+    , border = { radius = 32 }
+    }
+
+
+btn_circle =
+    { min_width = 32
+    , paddingRight = 0
+    , paddingLeft = 0
+    , fontAlign = Font.center
+    , border = { radius = 50 }
+    }
+
+
+btn_circle_outline =
+    { min_width = 32
+    , paddingRight = 0
+    , paddingLeft = 0
+    , fontAlign = Font.center
+    , border = { radius = 50 }
     }

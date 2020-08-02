@@ -69,6 +69,7 @@ stories =
     ( "Button"
     , [ ( "Type", types, PluginOptions.default )
       , ( "Size", sizes, PluginOptions.default |> withKnobs )
+      , ( "Shape", shapes, PluginOptions.default )
       ]
     )
 
@@ -93,6 +94,30 @@ sizes model =
         Large ->
             buttonView Button.large
 
+
+shapes _ =
+    Element.row
+        [ Element.spacing 8
+        ]
+        [ Button.primary
+            []
+            { onPress = Nothing
+            , label = Element.text "Default Shape"
+            }
+        , Button.primary
+            [ Button.circle ]
+            { onPress = Nothing
+            , label = Element.text "C"
+            }
+        , Button.primary
+            [ Button.round ]
+            { onPress = Nothing
+            , label = Element.text "Round"
+            }
+        ]
+
+
+-- STORIES HELPERS
 
 buttonView : Button.Attribute msg -> Element msg
 buttonView sizeAttribute =

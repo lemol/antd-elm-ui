@@ -10,7 +10,8 @@
   "dependencies": {
     "color": "^3.1.2",
     "css": "^3.0.0",
-    "lodash": "^4.17.19"
+    "lodash": "^4.17.19",
+    "postcss": "^7.0.32"
   },
   "devDependencies": {
     "@types/color": "^3.0.1",

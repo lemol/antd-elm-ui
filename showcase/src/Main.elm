@@ -1,4 +1,4 @@
-module Explorer exposing (main)
+module Main exposing (main)
 
 import Ant
 import Component.Button as Button

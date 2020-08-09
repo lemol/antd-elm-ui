@@ -1,7 +1,8 @@
 {
     "type": "application",
     "source-directories": [
-        "src"
+        "src",
+        "../ant-design-icons-elm/src"
     ],
     "elm-version": "0.19.1",
     "dependencies": {
@@ -10,6 +11,7 @@
             "elm/core": "1.0.5",
             "elm/html": "1.0.0",
             "kalutheo/elm-ui-explorer": "8.0.0",
+            "lemol/ant-design-icons-elm": "1.0.0",
             "mdgriffith/elm-ui": "1.1.7"
         },
         "indirect": {

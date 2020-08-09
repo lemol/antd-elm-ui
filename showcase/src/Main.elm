@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Ant
 import Component.Button as Button
+import Component.Icon as Icon
 import Debug.Control exposing (choice, field, record, string, value)
 import Element exposing (Element)
 import Html exposing (Html)
@@ -146,8 +147,21 @@ generalStories =
                             storyModel =
                                 model.customModel.button
                         in
-                        viewF storyModel |> toHtml
-                        |> Html.map ButtonMsg
+                        viewF storyModel
+                            |> toHtml
+                            |> Html.map ButtonMsg
+                    , opts
+                    )
+                )
+        )
+    , storiesOf
+        (Tuple.first Icon.stories)
+        (Tuple.second Icon.stories
+            |> List.map
+                (\( name, viewF, opts ) ->
+                    ( name
+                    , \model ->
+                        viewF |> toHtml
                     , opts
                     )
                 )

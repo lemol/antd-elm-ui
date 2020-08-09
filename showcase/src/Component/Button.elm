@@ -1,7 +1,8 @@
 module Component.Button exposing (Model, Msg(..), init, stories, update)
 
 import Ant
-import Ant.Button as Button
+import Ant.Button as Button exposing (circle, icon)
+import Ant.Icons as Icons
 import Debug.Control exposing (Control, choice, field, record, string, value)
 import Element exposing (Element)
 import Html exposing (Html)
@@ -70,6 +71,7 @@ stories =
     , [ ( "Type", types, PluginOptions.default )
       , ( "Size", sizes, PluginOptions.default |> withKnobs )
       , ( "Shape", shapes, PluginOptions.default )
+      , ( "Icon", icons, PluginOptions.default )
       ]
     )
 
@@ -95,6 +97,7 @@ sizes model =
             buttonView Button.large
 
 
+shapes : Model -> Element msg
 shapes _ =
     Element.row
         [ Element.spacing 8
@@ -105,9 +108,11 @@ shapes _ =
             , label = Element.text "Default Shape"
             }
         , Button.primary
-            [ Button.circle ]
+            [ circle
+            , icon (Icons.searchOutlined [])
+            ]
             { onPress = Nothing
-            , label = Element.text "C"
+            , label = Element.none
             }
         , Button.primary
             [ Button.round ]
@@ -117,7 +122,58 @@ shapes _ =
         ]
 
 
+icons : Model -> Element msg
+icons _ =
+    Element.row
+        [ Element.spacing 8
+        ]
+        [ Button.primary
+            [ icon (Icons.searchOutlined [])
+            , circle
+            ]
+            { onPress = Nothing
+            , label = Element.none
+            }
+        , Button.primary
+            [ circle ]
+            { onPress = Nothing
+            , label = Element.text "A"
+            }
+        , Button.primary
+            [ icon (Icons.searchOutlined []) ]
+            { onPress = Nothing
+            , label = Element.text "Search"
+            }
+        , Button.default
+            [ icon (Icons.searchOutlined [])
+            , circle
+            ]
+            { onPress = Nothing
+            , label = Element.none
+            }
+        , Button.default
+            [ icon (Icons.searchOutlined []) ]
+            { onPress = Nothing
+            , label = Element.text "Search"
+            }
+        , Button.dashed
+            [ icon (Icons.searchOutlined [])
+            , circle
+            ]
+            { onPress = Nothing
+            , label = Element.none
+            }
+        , Button.dashed
+            [ icon (Icons.searchOutlined []) ]
+            { onPress = Nothing
+            , label = Element.text "Search"
+            }
+        ]
+
+
+
 -- STORIES HELPERS
+
 
 buttonView : Button.Attribute msg -> Element msg
 buttonView sizeAttribute =

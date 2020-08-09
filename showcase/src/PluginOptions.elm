@@ -14,4 +14,4 @@ default =
 
 withKnobs : PluginOptions -> PluginOptions
 withKnobs options =
-  { options | knobs = True }
+    { options | knobs = True }

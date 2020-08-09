@@ -5,6 +5,7 @@ module Ant.Button exposing
     , default
     , defaultShape
     , defaultSize
+    , icon
     , large
     , primary
     , round
@@ -36,6 +37,7 @@ type ButtonSize
 type Attribute msg
     = Shape ButtonShape
     | Size ButtonSize
+    | Icon (Element msg)
     | Root (Element.Attribute msg)
 
 
@@ -45,16 +47,18 @@ type alias ButtonOptions msg =
     }
 
 
-type alias Props =
+type alias Props msg =
     { size : ButtonSize
     , shape : ButtonShape
+    , icon : Maybe (Element msg)
     }
 
 
-defaultProps : Props
+defaultProps : Props msg
 defaultProps =
     { size = DefaultSize
     , shape = DefaultShape
+    , icon = Nothing
     }
 
 
@@ -179,13 +183,43 @@ base theme attrs opts =
                         }
                     , Border.rounded theme.round.border.radius
                     ]
+
+        labelEmpty =
+            Element.none == opts.label
+
+        iconAttrs =
+            if labelEmpty then
+                []
+
+            else
+                [ Element.paddingEach
+                    { right = 8
+                    , top = 0
+                    , bottom = 0
+                    , left = 0
+                    }
+                ]
     in
     Element.Input.button
         (attrsBase
             ++ sizeAttrs
             ++ shapeAttrs
         )
-        opts
+        { opts
+            | label =
+                case props.icon of
+                    Nothing ->
+                        opts.label
+
+                    Just icon_ ->
+                        Element.row
+                            [ Element.centerX ]
+                            [ Element.el
+                                iconAttrs
+                                icon_
+                            , opts.label
+                            ]
+        }
 
 
 
@@ -226,11 +260,16 @@ round =
     Shape Round
 
 
+icon : Element msg -> Attribute msg
+icon =
+    Icon
+
+
 
 -- INTERNAL
 
 
-fromAttributes : List (Attribute msg) -> Props
+fromAttributes : List (Attribute msg) -> Props msg
 fromAttributes =
     let
         f act acc =
@@ -240,6 +279,9 @@ fromAttributes =
 
                 Shape x ->
                     { acc | shape = x }
+
+                Icon x ->
+                    { acc | icon = Just x }
 
                 _ ->
                     acc

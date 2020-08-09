@@ -68,7 +68,7 @@ update { updateKnobs } msg model =
 
 stories =
     ( "Button"
-    , [ ( "Type", types, PluginOptions.default )
+    , [ ( "Type", always types, PluginOptions.default )
       , ( "Size", sizes, PluginOptions.default |> withKnobs )
       , ( "Shape", shapes, PluginOptions.default )
       , ( "Icon", icons, PluginOptions.default )
@@ -76,8 +76,32 @@ stories =
     )
 
 
-types _ =
-    buttonView Button.defaultSize
+types : Element msg
+types =
+    Element.row
+        [ Element.spacing 8
+        ]
+        [ Button.default
+            []
+            { onPress = Nothing
+            , label = Element.text "Default Button"
+            }
+        , Button.primary
+            []
+            { onPress = Nothing
+            , label = Element.text "Primary Button"
+            }
+        , Button.dashed
+            []
+            { onPress = Nothing
+            , label = Element.text "Dashed Button"
+            }
+        , Button.text
+            []
+            { onPress = Nothing
+            , label = Element.text "Text Button"
+            }
+        ]
 
 
 sizes : Model -> Element msg
@@ -85,16 +109,88 @@ sizes model =
     let
         knobs =
             Debug.Control.currentValue model.knobs
+
+        viewSizes sizeAttribute =
+            Element.column
+                [ Element.spacing 8 ]
+                [ Element.row
+                    [ Element.spacing 8
+                    ]
+                    [ Button.default
+                        [ sizeAttribute ]
+                        { onPress = Nothing
+                        , label = Element.text "Default Button"
+                        }
+                    , Button.primary
+                        [ sizeAttribute ]
+                        { onPress = Nothing
+                        , label = Element.text "Primary Button"
+                        }
+                    , Button.dashed
+                        [ sizeAttribute ]
+                        { onPress = Nothing
+                        , label = Element.text "Dashed Button"
+                        }
+                    , Button.text
+                        [ sizeAttribute ]
+                        { onPress = Nothing
+                        , label = Element.text "Text Button"
+                        }
+                    ]
+
+                -- TODO: make all sizes look corect
+                , Element.row
+                    [ Element.spacing 8
+                    ]
+                    [ Button.primary
+                        [ sizeAttribute
+                        , icon (Icons.downloadOutlined [])
+                        ]
+                        { onPress = Nothing
+                        , label = Element.none
+                        }
+                    , Button.primary
+                        [ sizeAttribute
+                        , icon (Icons.downloadOutlined [])
+                        ]
+                        { onPress = Nothing
+                        , label = Element.none
+                        }
+                    , Button.primary
+                        [ sizeAttribute
+                        , Button.round
+                        , icon (Icons.downloadOutlined [])
+                        ]
+                        { onPress = Nothing
+                        , label = Element.none
+                        }
+                    , Button.primary
+                        [ sizeAttribute
+                        , Button.round
+                        , icon (Icons.downloadOutlined [])
+                        ]
+                        { onPress = Nothing
+                        , label = Element.text "Download"
+                        }
+                    , Button.primary
+                        [ sizeAttribute
+                        , icon (Icons.downloadOutlined [])
+                        ]
+                        { onPress = Nothing
+                        , label = Element.text "Download"
+                        }
+                    ]
+                ]
     in
     case knobs.size of
         Small ->
-            buttonView Button.small
+            viewSizes Button.small
 
         DefaultSize ->
-            buttonView Button.defaultSize
+            viewSizes Button.defaultSize
 
         Large ->
-            buttonView Button.large
+            viewSizes Button.large
 
 
 shapes : Model -> Element msg
@@ -173,31 +269,3 @@ icons _ =
 
 
 -- STORIES HELPERS
-
-
-buttonView : Button.Attribute msg -> Element msg
-buttonView sizeAttribute =
-    Element.row
-        [ Element.spacing 8
-        ]
-        [ Button.default
-            [ sizeAttribute ]
-            { onPress = Nothing
-            , label = Element.text "Default Button"
-            }
-        , Button.primary
-            [ sizeAttribute ]
-            { onPress = Nothing
-            , label = Element.text "Primary Button"
-            }
-        , Button.dashed
-            [ sizeAttribute ]
-            { onPress = Nothing
-            , label = Element.text "Dashed Button"
-            }
-        , Button.text
-            [ sizeAttribute ]
-            { onPress = Nothing
-            , label = Element.text "Text Button"
-            }
-        ]

@@ -1,5 +1,11 @@
-module Ant exposing (..)
+module Ant exposing
+    ( layout
+    , layoutBase
+    , unless
+    , when
+    )
 
+import Ant.Icon exposing (styleNode)
 import Ant.Theme as Theme
 import Element exposing (Element)
 import Element.Background as Background
@@ -12,7 +18,7 @@ layout =
     layoutBase Theme.body
 
 
-layoutBase theme attrs =
+layoutBase theme attrs content =
     let
         baseAttrs =
             [ Font.color theme.fontColor
@@ -21,14 +27,44 @@ layoutBase theme attrs =
             , theme.fontFamily
             , Background.color theme.backgroundColor
             ]
-    in
-    Element.layoutWith
-        { options =
-            [ Element.focusStyle
-                { borderColor = Nothing
-                , backgroundColor = Nothing
-                , shadow = Nothing
+
+        uiLayout =
+            Element.layoutWith
+                { options =
+                    [ Element.focusStyle
+                        { borderColor = Nothing
+                        , backgroundColor = Nothing
+                        , shadow = Nothing
+                        }
+                    ]
                 }
-            ]
-        }
-        (baseAttrs ++ attrs)
+                (baseAttrs ++ attrs)
+                content
+    in
+    Html.div
+        []
+        [ styleNode
+        , uiLayout
+        ]
+
+
+
+-- HELPERS
+
+
+when : Bool -> a -> Maybe a
+when condition value =
+    if condition then
+        Just value
+
+    else
+        Nothing
+
+
+unless : Bool -> a -> Maybe a
+unless condition value =
+    if condition then
+        Nothing
+
+    else
+        Just value

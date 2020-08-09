@@ -5,14 +5,17 @@ module Ant.Button exposing
     , default
     , defaultShape
     , defaultSize
+    , fromMaybe
     , icon
     , large
+    , loading
     , primary
     , round
     , small
     , text
     )
 
+import Ant.Icons exposing (loadingOutlined)
 import Ant.Theme as Theme
 import Element exposing (Element, px)
 import Element.Background as Background
@@ -35,9 +38,11 @@ type ButtonSize
 
 
 type Attribute msg
-    = Shape ButtonShape
+    = None
+    | Shape ButtonShape
     | Size ButtonSize
     | Icon (Element msg)
+    | Loading
     | Root (Element.Attribute msg)
 
 
@@ -51,6 +56,7 @@ type alias Props msg =
     { size : ButtonSize
     , shape : ButtonShape
     , icon : Maybe (Element msg)
+    , loading : Bool
     }
 
 
@@ -59,6 +65,7 @@ defaultProps =
     { size = DefaultSize
     , shape = DefaultShape
     , icon = Nothing
+    , loading = False
     }
 
 
@@ -199,21 +206,41 @@ base theme attrs opts =
                     , left = 0
                     }
                 ]
+
+        iconProp =
+            if props.loading then
+                Just (loadingOutlined [])
+
+            else
+                props.icon
+
+        overlayAttrs =
+            -- TODO: the Background color is not correct
+            if props.loading then
+                [ Background.color theme.hover.backgroundColor
+                , Font.color theme.hover.fontColor
+                , Border.color theme.hover.border.color
+                ]
+
+            else
+                []
     in
     Element.Input.button
         (attrsBase
             ++ sizeAttrs
             ++ shapeAttrs
+            ++ overlayAttrs
         )
         { opts
             | label =
-                case props.icon of
+                case iconProp of
                     Nothing ->
                         opts.label
 
                     Just icon_ ->
                         Element.row
-                            [ Element.centerX ]
+                            [ Element.centerX
+                            ]
                             [ Element.el
                                 iconAttrs
                                 icon_
@@ -260,9 +287,27 @@ round =
     Shape Round
 
 
+
+-- OTHER ATTRIBUTES
+
+
 icon : Element msg -> Attribute msg
 icon =
     Icon
+
+
+loading : Attribute msg
+loading =
+    Loading
+
+
+
+-- HELPERS
+
+
+fromMaybe : Maybe (Attribute msg) -> Attribute msg
+fromMaybe =
+    Maybe.withDefault None
 
 
 
@@ -282,6 +327,9 @@ fromAttributes =
 
                 Icon x ->
                     { acc | icon = Just x }
+
+                Loading ->
+                    { acc | loading = True }
 
                 _ ->
                     acc

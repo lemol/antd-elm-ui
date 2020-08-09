@@ -147,6 +147,7 @@ generalStories =
                                 model.customModel.button
                         in
                         viewF storyModel |> toHtml
+                        |> Html.map ButtonMsg
                     , opts
                     )
                 )

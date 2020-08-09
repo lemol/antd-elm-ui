@@ -1,7 +1,7 @@
 module Component.Button exposing (Model, Msg(..), init, stories, update)
 
-import Ant
-import Ant.Button as Button exposing (circle, icon)
+import Ant exposing (when)
+import Ant.Button as Button exposing (circle, icon, loading)
 import Ant.Icons as Icons
 import Debug.Control exposing (Control, choice, field, record, string, value)
 import Element exposing (Element)
@@ -31,6 +31,7 @@ type alias KnobsModel =
 
 type alias Model =
     { knobs : Control KnobsModel
+    , isLoading : Bool
     }
 
 
@@ -45,6 +46,7 @@ init =
                     , ( "Large", value Large )
                     ]
                 )
+    , isLoading = False
     }
 
 
@@ -54,12 +56,16 @@ init =
 
 type Msg
     = KnobsChanged (Control KnobsModel)
+    | ToggleLoading
 
 
 update { updateKnobs } msg model =
     case msg of
         KnobsChanged knobs ->
             updateKnobs { model | knobs = knobs }
+
+        ToggleLoading ->
+            updateKnobs { model | isLoading = not model.isLoading }
 
 
 
@@ -72,6 +78,7 @@ stories =
       , ( "Size", sizes, PluginOptions.default |> withKnobs )
       , ( "Shape", shapes, PluginOptions.default )
       , ( "Icon", icons, PluginOptions.default )
+      , ( "Loading", loadingButtons, PluginOptions.default )
       ]
     )
 
@@ -267,5 +274,62 @@ icons _ =
         ]
 
 
-
--- STORIES HELPERS
+loadingButtons : Model -> Element Msg
+loadingButtons model =
+    Element.column
+        [ Element.spacing 8
+        ]
+        [ Element.row
+            [ Element.spacing 8
+            ]
+            [ Button.primary
+                [ loading
+                ]
+                { onPress = Nothing
+                , label = Element.text "Loading"
+                }
+            , Button.primary
+                [ loading
+                , Button.small
+                ]
+                { onPress = Nothing
+                , label = Element.text "Loading"
+                }
+            , Button.primary
+                [ loading
+                ]
+                { onPress = Nothing
+                , label = Element.none
+                }
+            ]
+        , Element.row
+            [ Element.spacing 8
+            ]
+            [ Button.primary
+                [ loading
+                    |> when model.isLoading
+                    |> Button.fromMaybe
+                ]
+                { onPress = Just ToggleLoading
+                , label = Element.text "Click me!"
+                }
+            , Button.primary
+                [ loading
+                    |> when model.isLoading
+                    |> Button.fromMaybe
+                , icon (Icons.poweroffOutlined [])
+                ]
+                { onPress = Just ToggleLoading
+                , label = Element.text "Click me!"
+                }
+            , Button.primary
+                [ loading
+                    |> when model.isLoading
+                    |> Button.fromMaybe
+                , icon (Icons.poweroffOutlined [])
+                ]
+                { onPress = Just ToggleLoading
+                , label = Element.none
+                }
+            ]
+        ]

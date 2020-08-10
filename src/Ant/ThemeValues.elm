@@ -1,4 +1,4 @@
-module Ant.ThemeValues exposing (body, btn, btn__active, btn__focus, btn__hover, btn__lg, btn__sm, btn_circle, btn_circle_outline, btn_dashed, btn_dashed__active, btn_dashed__focus, btn_dashed__hover, btn_primary, btn_primary__active, btn_primary__focus, btn_primary__hover, btn_round, btn_text, btn_text__active, btn_text__focus, btn_text__hover)
+module Ant.ThemeValues exposing (body, btn, btn__active, btn__focus, btn__hover, btn__lg, btn__sm, btn_circle, btn_circle_outline, btn_dashed, btn_dashed__active, btn_dashed__focus, btn_dashed__hover, btn_primary, btn_primary__active, btn_primary__focus, btn_primary__hover, btn_round, btn_text, btn_text__active, btn_text__focus, btn_text__hover, h1__typography, h2__typography, h3__typography, h4__typography)
 
 import Element exposing (Color, rgb255, rgba255)
 import Element.Border as Border
@@ -224,4 +224,32 @@ btn_circle_outline =
     , paddingLeft = 0
     , fontAlign = Font.center
     , border = { radius = 50 }
+    }
+
+
+h1__typography =
+    { fontColor = rgba255 0 0 0 0.85
+    , fontSize = 38
+    , fontWeight = Font.semiBold
+    }
+
+
+h2__typography =
+    { fontColor = rgba255 0 0 0 0.85
+    , fontSize = 30
+    , fontWeight = Font.semiBold
+    }
+
+
+h3__typography =
+    { fontColor = rgba255 0 0 0 0.85
+    , fontSize = 24
+    , fontWeight = Font.semiBold
+    }
+
+
+h4__typography =
+    { fontColor = rgba255 0 0 0 0.85
+    , fontSize = 20
+    , fontWeight = Font.semiBold
     }

@@ -7,6 +7,10 @@ body =
     Values.body
 
 
+
+-- BUTTON
+
+
 button_default =
     { normal = Values.btn
     , active = Values.btn__active
@@ -228,3 +232,23 @@ button_text =
                     }
             }
     }
+
+
+
+-- TYPOGRAPHY
+
+
+h1 =
+    Values.h1__typography
+
+
+h2 =
+    Values.h2__typography
+
+
+h3 =
+    Values.h3__typography
+
+
+h4 =
+    Values.h4__typography

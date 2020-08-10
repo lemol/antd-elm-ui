@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build:theme": "ts-node scripts/index.ts | elm-format --stdin --elm-version=0.19 --output=src/Ant/ThemeValues.elm",
+    "build:theme": "scripts/node_modules/.bin/ts-node scripts/index.ts | elm-format --stdin --elm-version=0.19 --output=src/Ant/ThemeValues.elm",
     "build:showcase": "parcel build showcase/public/index.html --public-url ./",
     "build:docs": "elm make --docs=docs.json",
     "showcase": "parcel showcase/public/index.html"

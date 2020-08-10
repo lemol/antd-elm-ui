@@ -44,10 +44,13 @@ function buildRule(cssRule: css.Rule) {
 }
 
 function buildRuleName(cssName: string) {
-  return cssName.replace('.ant-', '')
+  return cssName
+    .replace(/^.ant-/g, '')
+    .replace(/\./g, '__')
     .replace(/-sm$/g, '__sm')
     .replace(/-lg$/g, '__lg')
     .replace(/-/g, '_')
+    .replace(/__ant_/g, '__')
     .replace(/:/g, '__');
 }
 
@@ -91,6 +94,10 @@ const selectors = [
   'btn_circle_outline',
   'btn_round',
   'btn_round_outline',
+  'h1__typography',
+  'h2__typography',
+  'h3__typography',
+  'h4__typography',
 ].reduce((acc, act) =>
   [
     ...acc,

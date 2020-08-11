@@ -1,4 +1,4 @@
-module Ant.ThemeValues exposing (body, btn, btn__active, btn__focus, btn__hover, btn__lg, btn__sm, btn_circle, btn_circle_outline, btn_dashed, btn_dashed__active, btn_dashed__focus, btn_dashed__hover, btn_primary, btn_primary__active, btn_primary__focus, btn_primary__hover, btn_round, btn_text, btn_text__active, btn_text__focus, btn_text__hover, h1__typography, h2__typography, h3__typography, h4__typography)
+module Ant.ThemeValues exposing (body, btn, btn__active, btn__focus, btn__hover, btn__lg, btn__sm, btn_circle, btn_circle_outline, btn_dashed, btn_dashed__active, btn_dashed__focus, btn_dashed__hover, btn_primary, btn_primary__active, btn_primary__focus, btn_primary__hover, btn_round, btn_text, btn_text__active, btn_text__focus, btn_text__hover, h1__typography, h2__typography, h3__typography, h4__typography, typography, typography__typography_danger, typography__typography_secondary, typography__typography_warning)
 
 import Element exposing (Color, rgb255, rgba255)
 import Element.Border as Border
@@ -224,6 +224,26 @@ btn_circle_outline =
     , paddingLeft = 0
     , fontAlign = Font.center
     , border = { radius = 50 }
+    }
+
+
+typography =
+    { fontColor = rgba255 0 0 0 0.65
+    }
+
+
+typography__typography_secondary =
+    { fontColor = rgba255 0 0 0 0.45
+    }
+
+
+typography__typography_warning =
+    { fontColor = rgb255 250 173 20
+    }
+
+
+typography__typography_danger =
+    { fontColor = rgb255 255 77 79
     }
 
 

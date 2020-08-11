@@ -1,10 +1,14 @@
-module Ant.Typography exposing
+module Ant.Typography.Title exposing
     ( Attribute
+    , danger
     , fromMaybe
     , h1
     , h2
     , h3
     , h4
+    , secondary
+    , titleBase
+    , warning
     )
 
 import Ant.Theme as Theme
@@ -20,6 +24,7 @@ import Utils exposing (style)
 type Attribute msg
     = None
     | TitleLevel Level
+    | TitleType Type
 
 
 type Level
@@ -29,6 +34,13 @@ type Level
     | H4
 
 
+type Type
+    = TypeNormal
+    | Secondary
+    | Warning
+    | Danger
+
+
 type alias TypographyOptions msg =
     { text : Element msg
     }
@@ -36,6 +48,7 @@ type alias TypographyOptions msg =
 
 type alias Props =
     { level : Level
+    , type_ : Type
     }
 
 
@@ -77,14 +90,54 @@ titleBase theme attrs opts =
 
                 H4 ->
                     Region.heading 4
+
+        typeAttrs =
+            case props.type_ of
+                TypeNormal ->
+                    [ Font.color theme.normal.fontColor
+                    ]
+
+                Secondary ->
+                    [ Font.color theme.secondary.fontColor
+                    ]
+
+                Warning ->
+                    [ Font.color theme.warning.fontColor
+                    ]
+
+                Danger ->
+                    [ Font.color theme.danger.fontColor
+                    ]
     in
     Element.el
-        [ Font.color theme.fontColor
-        , Font.size theme.fontSize
-        , theme.fontWeight
-        , region
-        ]
+        ([ Font.size theme.normal.fontSize
+         , theme.normal.fontWeight
+         , region
+         , style "margin-bottom" "0.5em"
+         , style "line-height" "1.23"
+         ]
+            ++ typeAttrs
+        )
         opts.text
+
+
+
+-- ATTRIBUTES
+
+
+secondary : Attribute msg
+secondary =
+    TitleType Secondary
+
+
+warning : Attribute msg
+warning =
+    TitleType Warning
+
+
+danger : Attribute msg
+danger =
+    TitleType Danger
 
 
 
@@ -103,6 +156,7 @@ fromMaybe =
 defaultProps : Props
 defaultProps =
     { level = H1
+    , type_ = TypeNormal
     }
 
 
@@ -113,6 +167,9 @@ fromAttributes =
             case act of
                 TitleLevel x ->
                     { acc | level = x }
+
+                TitleType x ->
+                    { acc | type_ = x }
 
                 None ->
                     acc

@@ -239,16 +239,32 @@ button_text =
 
 
 h1 =
-    Values.h1__typography
+    { normal = Values.h1__typography
+    , secondary = Values.typography__typography_secondary
+    , warning = Values.typography__typography_warning
+    , danger = Values.typography__typography_danger
+    }
 
 
 h2 =
-    Values.h2__typography
+    { normal = Values.h2__typography
+    , secondary = Values.typography__typography_secondary
+    , warning = Values.typography__typography_warning
+    , danger = Values.typography__typography_danger
+    }
 
 
 h3 =
-    Values.h3__typography
+    { normal = Values.h3__typography
+    , secondary = Values.typography__typography_secondary
+    , warning = Values.typography__typography_warning
+    , danger = Values.typography__typography_danger
+    }
 
 
 h4 =
-    Values.h4__typography
+    { normal = Values.h4__typography
+    , secondary = Values.typography__typography_secondary
+    , warning = Values.typography__typography_warning
+    , danger = Values.typography__typography_danger
+    }

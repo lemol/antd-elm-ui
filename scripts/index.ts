@@ -98,6 +98,10 @@ const selectors = [
   'h2__typography',
   'h3__typography',
   'h4__typography',
+  'typography',
+  'typography__typography_secondary',
+  'typography__typography_warning',
+  'typography__typography_danger',
 ].reduce((acc, act) =>
   [
     ...acc,

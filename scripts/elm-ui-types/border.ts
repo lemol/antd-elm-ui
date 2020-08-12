@@ -67,7 +67,13 @@ function parseAndSetBorder(css: string, result: Border) {
 
   result.width = basic.px.parse(splited[0]);
   result.style = borderStyle(splited[1]);
-  result.color = basic.color.parse(splited[2]);
+
+  if (splited[2].startsWith('rgb')) {
+    const col = css.substring(css.indexOf('rgb'));
+    result.color = basic.color.parse(col);
+  } else {
+    result.color = basic.color.parse(splited[2]);
+  }
 }
 
 function parseAndSetBorderColor(css: string, result: Border) {

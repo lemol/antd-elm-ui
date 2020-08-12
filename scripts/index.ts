@@ -51,7 +51,8 @@ function buildRuleName(cssName: string) {
     .replace(/-lg$/g, '__lg')
     .replace(/-/g, '_')
     .replace(/__ant_/g, '__')
-    .replace(/:/g, '__');
+    .replace(/:/g, '__')
+    .replace(/ /g, '__');
 }
 
 function buildDeclaration(cssDeclaration: css.Declaration) {
@@ -102,6 +103,9 @@ const selectors = [
   'typography__typography_secondary',
   'typography__typography_warning',
   'typography__typography_danger',
+  'typography__typography_disabled',
+  'a__typography',
+  'typography__code',
 ].reduce((acc, act) =>
   [
     ...acc,

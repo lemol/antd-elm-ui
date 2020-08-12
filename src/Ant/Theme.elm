@@ -1,6 +1,7 @@
 module Ant.Theme exposing (..)
 
 import Ant.ThemeValues as Values
+import Element.Font as Font
 
 
 body =
@@ -238,33 +239,55 @@ button_text =
 -- TYPOGRAPHY
 
 
-h1 =
-    { normal = Values.h1__typography
+typography =
+    { normal =
+        { fontColor = Values.typography.fontColor
+        , fontSize = body.fontSize
+        , fontWeight = Font.regular
+        }
     , secondary = Values.typography__typography_secondary
     , warning = Values.typography__typography_warning
     , danger = Values.typography__typography_danger
+    , disabled = Values.typography__typography_disabled
+    , code = Values.typography__code
+    }
+
+
+text =
+    typography
+
+
+h1 =
+    { typography
+        | normal = Values.h1__typography
     }
 
 
 h2 =
-    { normal = Values.h2__typography
-    , secondary = Values.typography__typography_secondary
-    , warning = Values.typography__typography_warning
-    , danger = Values.typography__typography_danger
+    { typography
+        | normal = Values.h2__typography
     }
 
 
 h3 =
-    { normal = Values.h3__typography
-    , secondary = Values.typography__typography_secondary
-    , warning = Values.typography__typography_warning
-    , danger = Values.typography__typography_danger
+    { typography
+        | normal = Values.h3__typography
     }
 
 
 h4 =
-    { normal = Values.h4__typography
-    , secondary = Values.typography__typography_secondary
-    , warning = Values.typography__typography_warning
-    , danger = Values.typography__typography_danger
+    { typography
+        | normal = Values.h4__typography
+    }
+
+
+link =
+    { normal =
+        Values.a__typography
+    , focus =
+        Values.a__typography__focus
+    , hover =
+        Values.a__typography__hover
+    , active =
+        Values.a__typography__active
     }

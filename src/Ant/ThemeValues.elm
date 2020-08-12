@@ -1,4 +1,4 @@
-module Ant.ThemeValues exposing (body, btn, btn__active, btn__focus, btn__hover, btn__lg, btn__sm, btn_circle, btn_circle_outline, btn_dashed, btn_dashed__active, btn_dashed__focus, btn_dashed__hover, btn_primary, btn_primary__active, btn_primary__focus, btn_primary__hover, btn_round, btn_text, btn_text__active, btn_text__focus, btn_text__hover, h1__typography, h2__typography, h3__typography, h4__typography, typography, typography__typography_danger, typography__typography_secondary, typography__typography_warning)
+module Ant.ThemeValues exposing (a__typography, a__typography__active, a__typography__focus, a__typography__hover, body, btn, btn__active, btn__focus, btn__hover, btn__lg, btn__sm, btn_circle, btn_circle_outline, btn_dashed, btn_dashed__active, btn_dashed__focus, btn_dashed__hover, btn_primary, btn_primary__active, btn_primary__focus, btn_primary__hover, btn_round, btn_text, btn_text__active, btn_text__focus, btn_text__hover, h1__typography, h2__typography, h3__typography, h4__typography, typography, typography__code, typography__typography_danger, typography__typography_disabled, typography__typography_secondary, typography__typography_warning)
 
 import Element exposing (Color, rgb255, rgba255)
 import Element.Border as Border
@@ -247,6 +247,11 @@ typography__typography_danger =
     }
 
 
+typography__typography_disabled =
+    { fontColor = rgba255 0 0 0 0.25
+    }
+
+
 h1__typography =
     { fontColor = rgba255 0 0 0 0.85
     , fontSize = 38
@@ -272,4 +277,40 @@ h4__typography =
     { fontColor = rgba255 0 0 0 0.85
     , fontSize = 20
     , fontWeight = Font.semiBold
+    }
+
+
+a__typography =
+    { fontColor = rgb255 24 144 255
+    }
+
+
+a__typography__focus =
+    { fontColor = rgb255 64 169 255
+    }
+
+
+a__typography__hover =
+    { fontColor = rgb255 64 169 255
+    }
+
+
+a__typography__active =
+    { fontColor = rgb255 9 109 217
+    }
+
+
+typography__code =
+    { paddingTop = 0
+    , paddingRight = 0
+    , paddingBottom = 0
+    , paddingLeft = 0
+    , backgroundColor = rgba255 150 150 150 0.1
+    , fontSize = 85
+    , border =
+        { width = 1
+        , style = Border.solid
+        , color = rgba255 100 100 100 0.2
+        , radius = 3
+        }
     }

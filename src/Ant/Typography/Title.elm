@@ -1,30 +1,24 @@
 module Ant.Typography.Title exposing
     ( Attribute
-    , danger
     , fromMaybe
     , h1
     , h2
     , h3
     , h4
-    , secondary
     , titleBase
-    , warning
+    , typography
     )
 
 import Ant.Theme as Theme
+import Ant.Typography as Typography
 import Element exposing (Element)
-import Element.Background as Background
-import Element.Border as Border
-import Element.Font as Font
-import Element.Input
 import Element.Region as Region
-import Utils exposing (style)
 
 
 type Attribute msg
     = None
     | TitleLevel Level
-    | TitleType Type
+    | TypographyAttrs (List (Typography.Attribute msg))
 
 
 type Level
@@ -34,21 +28,14 @@ type Level
     | H4
 
 
-type Type
-    = TypeNormal
-    | Secondary
-    | Warning
-    | Danger
-
-
 type alias TypographyOptions msg =
     { text : Element msg
     }
 
 
-type alias Props =
+type alias Props msg =
     { level : Level
-    , type_ : Type
+    , typographyAttrs : List (Typography.Attribute msg)
     }
 
 
@@ -91,33 +78,11 @@ titleBase theme attrs opts =
                 H4 ->
                     Region.heading 4
 
-        typeAttrs =
-            case props.type_ of
-                TypeNormal ->
-                    [ Font.color theme.normal.fontColor
-                    ]
-
-                Secondary ->
-                    [ Font.color theme.secondary.fontColor
-                    ]
-
-                Warning ->
-                    [ Font.color theme.warning.fontColor
-                    ]
-
-                Danger ->
-                    [ Font.color theme.danger.fontColor
-                    ]
+        base =
+            Typography.typographyBase theme props.typographyAttrs
     in
     Element.el
-        ([ Font.size theme.normal.fontSize
-         , theme.normal.fontWeight
-         , region
-         , style "margin-bottom" "0.5em"
-         , style "line-height" "1.23"
-         ]
-            ++ typeAttrs
-        )
+        (region :: base.allAttrs)
         opts.text
 
 
@@ -125,19 +90,9 @@ titleBase theme attrs opts =
 -- ATTRIBUTES
 
 
-secondary : Attribute msg
-secondary =
-    TitleType Secondary
-
-
-warning : Attribute msg
-warning =
-    TitleType Warning
-
-
-danger : Attribute msg
-danger =
-    TitleType Danger
+typography : List (Typography.Attribute msg) -> Attribute msg
+typography =
+    TypographyAttrs
 
 
 
@@ -153,14 +108,14 @@ fromMaybe =
 -- INTERNAL
 
 
-defaultProps : Props
+defaultProps : Props msg
 defaultProps =
     { level = H1
-    , type_ = TypeNormal
+    , typographyAttrs = []
     }
 
 
-fromAttributes : List (Attribute msg) -> Props
+fromAttributes : List (Attribute msg) -> Props msg
 fromAttributes =
     let
         f act acc =
@@ -168,8 +123,8 @@ fromAttributes =
                 TitleLevel x ->
                     { acc | level = x }
 
-                TitleType x ->
-                    { acc | type_ = x }
+                TypographyAttrs x ->
+                    { acc | typographyAttrs = x }
 
                 None ->
                     acc

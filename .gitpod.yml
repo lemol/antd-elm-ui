@@ -1,10 +1,11 @@
 tasks:
-  - init: yarn
-    command: 'echo "TODO: Replace with command to start project"'
+  - init: yarn install
+    command: yarn showcase
 
 ports:
-  - port: 8000
+  - port: 1234
     onOpen: open-preview
+
 vscode:
   extensions:
-    - elmTooling.elm-ls-vscode@1.1.1:V7e0myIRioA+vC8/uv+Cmw==
+    - elmTooling.elm-ls-vscode@1.2.0:HTRkzUtSfZ5H2p6bPf2IHw==

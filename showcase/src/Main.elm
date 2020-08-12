@@ -16,7 +16,7 @@ import UIExplorer
         , createCategories
         , defaultConfig
         , exploreWithCategories
-        , logoFromUrl
+        , logoFromHtml
         , storiesOf
         )
 import UIExplorer.Plugins.Knobs as KnobsPlugin
@@ -57,7 +57,7 @@ type Msg
 header =
     Just
         { title = "Ant Design Elm-UI"
-        , logo = logoFromUrl "ant-design-elm-ui.png"
+        , logo = logoFromHtml (Html.span [] [])
         , titleColor = Just "#FFFFFF"
         , bgColor = Just "#22292f"
         }

@@ -2,6 +2,7 @@ module Component.Icon exposing (stories)
 
 import Ant.Icon exposing (fill, height, rotate, spin, width)
 import Ant.Icons as Icons
+import Ant.Typography.Link exposing (newTabLink)
 import Element exposing (Element)
 import Element.Font as Font
 import PluginOptions exposing (withKnobs)
@@ -60,10 +61,7 @@ listOfIcons =
     Element.paragraph
         []
         [ Element.text "The list of icons are shown in the "
-        , Element.link
-            [ Element.mouseOver
-                [ Font.color (Element.rgb255 0x00 0x00 0xDD) ]
-            ]
+        , newTabLink []
             { url = "https://ant-design-icons-elm-ui.vercel.app/#Default/Directional%20Icons/Outlined"
             , label = Element.text "lemol/ant-design-icons-elm-ui package"
             }
